@@ -1,21 +1,18 @@
-# Overview
+# Image-recognition
 
-This repo contains code for the "TensorFlow for poets 2" series of codelabs.
+##Notes
 
-There are multiple versions of this codelab depending on which version 
-of the tensorflow libraries you plan on using:
+Part of the training set containing images which have label named "Neglyubka" has been artificially enlarged 
+by making copy of rotated and blured orginal images. I did this because orginal set was too small to just use it to training.
 
-* For [TensorFlow Lite](https://www.tensorflow.org/mobile/tflite/) the new, ground up rewrite targeted at mobile devices
-  use [this version of the codelab](https://codelabs.developers.google.com/codelabs/tensorflow-for-poets-2-tflite) 
-* For the more mature [TensorFlow Mobile](https://www.tensorflow.org/mobile/mobile_intro) use 
-  [this version of the codealab](https://codelabs.developers.google.com/codelabs/tensorflow-for-poets-2).
+##Preprocessing
 
+I create script named "preprocess.py" to extend images with type named "product" from the data set.
+This script also convert images to jpg format, resize them and divide them into subfolders which has the same name as labels.
 
-This repo contains simplified and trimmed down version of tensorflow's example image classification apps.
+Extra librraries required to run this script: pandas and Pillow.
 
-* The TensorFlow Lite version, in `android/tflite`, comes from [tensorflow/contrib/lite/](https://github.com/tensorflow/tensorflow/tree/master/tensorflow/contrib/lite).
-* The Tensorflow Mobile version, in `android/tfmobile`, comes from [tensorflow/examples/android/](https://github.com/tensorflow/tensorflow/tree/master/tensorflow/examples/android).
+Execution:
 
-The `scripts` directory contains helpers for the codelab. Some of these come from the main TensorFlow repository, and are included here so you can use them without also downloading the main TensorFlow repo (they are not part of the TensorFlow `pip` installation).
+python preprocess.py dataSetLocation inputImagesDirectory outputImagesDirectory
 
-# Image-recognition-
