@@ -1,27 +1,44 @@
-import pandas as pd
 import os
-from PIL import Image
+import pandas as pd
+from os.path import isfile,join,exists
+import cv2
 import argparse
-import sys
-if(len(sys.argv)!=4):
-    raise "Wrong params number"
-else:
-    dataSetPath =sys.argv[1]
-    inputDir = sys.argv[2]
-    outputDir = sys.argv[3]
-if not os.path.exists(outputDir):
+
+##Declare arguments 
+parser = argparse.ArgumentParser()
+parser.add_argument("dataset", help="Location of dataset")
+parser.add_argument("inputdir", help="Directory with input images")
+parser.add_argument("outputdir", help="Directory with output images")
+
+##Get arguments from command line
+args = parser.parse_args()
+dataSetPath =args.dataset
+inputDir = args.inputdir
+outputDir = args.outputdir
+
+##Validate inputs
+if(isfile(dataSetPath)==False):
+    raise "Wrong dataset location"
+if not exists(inputDir):
+    raise "Input directory not exists"
+if not exists(outputDir):
     os.makedirs(outputDir)
+
+##Get data from data set
 data = pd.read_csv(dataSetPath)
 productData = data[data['type']=="product"]
 filtered_data = productData.filter(["decor_label","decor","file"]).values
 x =filtered_data.shape[0]
+
+##Make preprocessing
 for i in range(x):
     decor= filtered_data[i,1]
-    if not os.path.exists(outputDir+"/"+str(decor)):
-        os.makedirs(outputDir+"/"+str(decor))
+    #Create output dir if not exists
+    if not os.path.exists(join(outputDir,str(decor))):
+        os.makedirs(join(outputDir,str(decor)))
     name = filtered_data[i,2][:-4]
-    im = Image.open(inputDir+"/"+str(filtered_data[i,2]))
-    im =im.resize((224,224))
-    rgb_im = im.convert('RGB')
-    finalFile = outputDir+"/"+ str(decor) + "/" + str(name) + ".jpg"
-    rgb_im.save(finalFile)
+    im = cv2.imread(join(inputDir,str(filtered_data[i,2])),1)
+    im =cv2.resize(im,(224,224))
+    finalDir = join(outputDir,str(decor))
+    finalFile = join(finalDir,  str(name) + ".jpg")
+    cv2.imwrite(finalFile,im)
