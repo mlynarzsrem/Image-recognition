@@ -25,3 +25,11 @@ Extra librraries required to run this script: opencv
 python blur.py inputImagesDirectory
 
 ## Running
+
+1.  git clone https://github.com/mlynarzsrem/Image-recognition.git
+
+2. cd Image-recognition
+
+3. Use preprocess.py to extract all necessary images to proper folder in tf-files (instruction above)
+
+4.  If you want you can use blur.py to enlarge your training set (instruction above) 
