@@ -52,7 +52,7 @@ python blur.py inputImagesDirectory
      Set the appropriate value of "how_many_training_steps". I choosed 4000 because it gave quite good results and it did not last too long.
     Insert path with your training set to --image_dir.
 
-    Architecture name "mobilenet_0.75_128" containts two important parameters. First one, relative size of model can accept values "1.0, 0.75, 0.50, or 0.25". In this case I've been choosen 0.75. Second one, image size can accept values "128,160,192, or 224px". In this case I've been choosen 128 px, becuse it is size of photos afer retraing.
+    Architecture name "mobilenet_0.75_128" containts two important parameters. First one, relative size of model can accept values "1.0, 0.75, 0.50, or 0.25". In this case I've been choosen 0.75. Second one, image size can accept values "128,160,192, or 224px". In this case I've been choosen 128 px, becuse it is size of photos after retraining.
 
 6. To run classifier use command below:
 
