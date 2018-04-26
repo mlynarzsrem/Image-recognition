@@ -13,7 +13,9 @@ This script also convert images to jpg format, resize them and divide them into 
 Extra librraries required to run this script: pandas and opencv.
 
 *Execution:*
-python preprocess.py dataSetLocation inputImagesDirectory outputImagesDirectory
+python preprocess.py dataSetLocation inputImagesDirectory outputImagesDirectory --size=imageSize
+
+--size is optional (default 224)
 
 ---
 
@@ -30,6 +32,35 @@ python blur.py inputImagesDirectory
 
 2. cd Image-recognition
 
-3. Use preprocess.py to extract all necessary images to proper folder in tf-files (instruction above)
+3. Use preprocess.py to extract all necessary images to proper folder in tf_files (instruction above)
 
-4.  If you want you can use blur.py to enlarge your training set (instruction above) 
+4.  If you want you can use blur.py to enlarge your training set (instruction above)
+
+5. To train the classifier use command below:
+
+python -m scripts.retrain \
+  --bottleneck_dir=tf_files/bottlenecks \
+  --how_many_training_steps=4000 \
+  --model_dir=tf_files/models/ \
+  --summaries_dir=tf_files/training_summaries/"mobilenet_0.75_128" \
+  --output_graph=tf_files/retrained_graph.pb \
+  --output_labels=tf_files/retrained_labels.txt \
+  --architecture="mobilenet_0.75_128" \
+  --image_dir=tf_files/photos
+
+
+ Set the appropriate value of "how_many_training_steps". I choosed 4000 because it gave quite good results and it did not last too long.
+Insert path with your training set to image_dir.
+
+Architecture name "mobilenet_0.75_128" containts two important parameters. First one, relative size of model can accept values "1.0, 0.75, 0.50, or 0.25". In this case I've been choosen 0.75. Second one, image size can accept values "128,160,192, or 224px". In this case I've been choosen 128 px, becuse it is size of photos afer retraing.
+
+6. To run classifier use command below:
+
+python -m scripts.label_image --graph=tf_files/retrained_graph.pb --image=tf_files/photos/Iznik/03_05_2_001.jpg
+
+Insert into --image location of image which you want to classify.
+
+
+## Accuracy
+
+I managed to achieve 81,0% accuracy.      

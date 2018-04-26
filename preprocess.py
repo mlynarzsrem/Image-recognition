@@ -9,13 +9,17 @@ parser = argparse.ArgumentParser()
 parser.add_argument("dataset", help="Location of dataset")
 parser.add_argument("inputdir", help="Directory with input images")
 parser.add_argument("outputdir", help="Directory with output images")
+parser.add_argument("-s", "--size",type=int,help="Size of input images. ")
 
 ##Get arguments from command line
 args = parser.parse_args()
 dataSetPath =args.dataset
 inputDir = args.inputdir
 outputDir = args.outputdir
-
+if args.size:
+    size =args.size
+else:
+    size =224
 ##Validate inputs
 if(isfile(dataSetPath)==False):
     raise "Wrong dataset location"
@@ -33,12 +37,11 @@ x =filtered_data.shape[0]
 ##Make preprocessing
 for i in range(x):
     decor= filtered_data[i,1]
-    #Create output dir if not exists
     if not os.path.exists(join(outputDir,str(decor))):
         os.makedirs(join(outputDir,str(decor)))
     name = filtered_data[i,2][:-4]
     im = cv2.imread(join(inputDir,str(filtered_data[i,2])),1)
-    im =cv2.resize(im,(224,224))
+    im =cv2.resize(im,(size,size))
     finalDir = join(outputDir,str(decor))
     finalFile = join(finalDir,  str(name) + ".jpg")
     cv2.imwrite(finalFile,im)
