@@ -50,16 +50,20 @@ python -m scripts.retrain \
 
 
  Set the appropriate value of "how_many_training_steps". I choosed 4000 because it gave quite good results and it did not last too long.
-Insert path with your training set to image_dir.
+Insert path with your training set to --image_dir.
 
 Architecture name "mobilenet_0.75_128" containts two important parameters. First one, relative size of model can accept values "1.0, 0.75, 0.50, or 0.25". In this case I've been choosen 0.75. Second one, image size can accept values "128,160,192, or 224px". In this case I've been choosen 128 px, becuse it is size of photos afer retraing.
 
 6. To run classifier use command below:
 
-python -m scripts.label_image --graph=tf_files/retrained_graph.pb --image=tf_files/photos/Iznik/03_05_2_001.jpg
+python -m scripts.label_image --graph=tf_files/retrained_graph.pb \
+--input_height=128 \
+--input_width=128\
+--image=tf_files/photos/Iznik/03_05_2_001.jpg
 
 Insert into --image location of image which you want to classify.
 
+Set image height and width into proper variables.
 
 ## Accuracy
 
