@@ -13,7 +13,11 @@ for f in listdir(inputDir):
     if(isfile(join(inputDir,f))==True):
         finalPath=join(inputDir,f)
         img = cv2.imread(finalPath,1)
+        (h, w) = img.shape[:2]
+        center = (w / 2, h / 2)
         blur = cv2.GaussianBlur(img,(5,5),0)
-        cv2.imwrite(join(inputDir,"blur"+f),blur)
+        M = cv2.getRotationMatrix2D(center, 90, 1)
+        rotated =  cv2.warpAffine(blur, M, (h, w))
+        cv2.imwrite(join(inputDir,"edited"+f),rotated)
                
         

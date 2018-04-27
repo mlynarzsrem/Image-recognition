@@ -3,7 +3,7 @@
 ## Notes
 
 Part of the training set containing images which have label named "Neglyubka" has been artificially enlarged 
-by making copy of blurry orginal images. I did this because orginal set was too small to just use it to training.
+by making copy of blurry and rotated orginal images. I did this because orginal set was too small to just use it to training.
 
 ## Preprocessing
 
@@ -19,7 +19,7 @@ python preprocess.py dataSetLocation inputImagesDirectory outputImagesDirectory 
 
 ---
 
-I blurred images using my scritp blur.py which take as argument folder with images and create in the same folder blurred copy of all images from thast folder.
+I blurred and rotaded left images using my scritp blur.py which take as argument folder with images and create in the same folder blurred and rotated copy of all images from thast folder.
 
 Extra librraries required to run this script: opencv
 
@@ -66,9 +66,5 @@ python blur.py inputImagesDirectory
     Set image height and width into proper variables.
 
 ## Accuracy
-
-I managed to achieve 81,0% accuracy.
-
-Update: 
 
 After enlarging all data set by copy of rotated and blurry images I achieved 87 % accuracy.      
