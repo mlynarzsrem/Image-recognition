@@ -4,6 +4,14 @@ from os.path import isfile,join,exists
 import cv2
 import argparse
 
+def makeRotatedImages(finalDir,name,img,angle):
+    (h, w) = img.shape[:2]
+    center = (w / 2, h / 2)
+    M = cv2.getRotationMatrix2D(center, angle, 1)
+    rotated =  cv2.warpAffine(img, M, (h, w))
+    finalRotFile = join(finalDir,  "rotated_"+str(angle)+"_"+str(name) + ".jpg")
+    cv2.imwrite(finalRotFile,rotated)
+    
 ##Declare arguments 
 parser = argparse.ArgumentParser()
 parser.add_argument("dataset", help="Location of dataset")
@@ -45,3 +53,5 @@ for i in range(x):
     finalDir = join(outputDir,str(decor))
     finalFile = join(finalDir,  str(name) + ".jpg")
     cv2.imwrite(finalFile,im)
+    for angle in [90,180,270,45,30,60]:
+        makeRotatedImages(finalDir,name,im,angle)
