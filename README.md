@@ -67,4 +67,8 @@ python blur.py inputImagesDirectory
 
 ## Accuracy
 
-I managed to achieve 81,0% accuracy.      
+I managed to achieve 81,0% accuracy.
+
+Update: 
+
+After enlarging all data set by copy of rotated and blurry images I achieved 87 % accuracy.      
